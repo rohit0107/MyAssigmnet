@@ -1,0 +1,15 @@
+{
+	"name": "Tadf077",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Disabled",
+			"editable": true
+		}
+	},
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "8ea3e637-4166-4f0c-838c-41f0bbeae4ee",
+		"tenantId": "5b9315ec-8ff8-4183-9f0b-ef7bdace394d"
+	}
+}

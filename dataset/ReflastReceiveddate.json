@@ -1,0 +1,13 @@
+{
+	"name": "ReflastReceiveddate",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Adf2sql_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

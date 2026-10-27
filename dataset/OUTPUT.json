@@ -1,0 +1,24 @@
+{
+	"name": "OUTPUT",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Adf2sql_LS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"Target_table": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"table": {
+				"value": "@dataset().Target_table",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

@@ -1,0 +1,17 @@
+{
+	"name": "Elestoreoutput",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Adf2sql_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "",
+			"table": "elestore_tb"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

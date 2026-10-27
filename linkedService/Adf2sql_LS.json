@@ -1,0 +1,17 @@
+{
+	"name": "Adf2sql_LS",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "azesqlsvr.database.windows.net",
+			"database": "DEsqldb",
+			"encrypt": "mandatory",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "sqladmin",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDRGOTE2NjE5LTlCRjQtNEZENi1CNDFFLTY2RkEwOTA2MDE4NV9iZGI0M2IyOC1jMWIwLTQ3MTctYmM2Ni03NTQzNTYzMTAyMTIiDQp9"
+		}
+	}
+}

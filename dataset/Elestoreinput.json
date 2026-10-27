@@ -1,0 +1,16 @@
+{
+	"name": "Elestoreinput",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MySql1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "MySqlTable",
+		"schema": [],
+		"typeProperties": {
+			"tableName": "`ele_store1`"
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

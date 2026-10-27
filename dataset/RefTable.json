@@ -1,0 +1,13 @@
+{
+	"name": "RefTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MYSQL2ADF",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "MySqlTable",
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
