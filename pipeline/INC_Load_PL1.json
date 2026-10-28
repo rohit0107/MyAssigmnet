@@ -1,0 +1,32 @@
+{
+	"name": "INC_Load_PL1",
+	"properties": {
+		"activities": [
+			{
+				"name": "Lookup1",
+				"description": "",
+				"type": "Lookup",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "MySqlSource",
+						"query": "SELECT TABLE_NAME\nFROM INFORMATION_SCHEMA.TABLES\nWHERE TABLE_SCHEMA = 'training'\n  AND TABLE_TYPE = 'BASE TABLE';"
+					},
+					"dataset": {
+						"referenceName": "ReferenceTable1",
+						"type": "DatasetReference"
+					}
+				}
+			}
+		],
+		"annotations": []
+	}
+}
