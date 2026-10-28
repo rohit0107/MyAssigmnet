@@ -1,0 +1,57 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "Tadf077"
+		},
+		"Adf2sql_LS_password": {
+			"value": ""
+		},
+		"MYSQL2ADF_password": {
+			"value": ""
+		},
+		"MYSQL2ADF_LS_password": {
+			"value": ""
+		},
+		"MySql1_password": {
+			"value": ""
+		},
+		"Adf2sql_LS_properties_typeProperties_server": {
+			"value": "azesqlsvr.database.windows.net"
+		},
+		"Adf2sql_LS_properties_typeProperties_database": {
+			"value": "DEsqldb"
+		},
+		"Adf2sql_LS_properties_typeProperties_userName": {
+			"value": "sqladmin"
+		},
+		"MYSQL2ADF_properties_typeProperties_server": {
+			"value": "localhost"
+		},
+		"MYSQL2ADF_properties_typeProperties_database": {
+			"value": "training"
+		},
+		"MYSQL2ADF_properties_typeProperties_username": {
+			"value": "root"
+		},
+		"MYSQL2ADF_LS_properties_typeProperties_server": {
+			"value": "localhost"
+		},
+		"MYSQL2ADF_LS_properties_typeProperties_database": {
+			"value": "training"
+		},
+		"MYSQL2ADF_LS_properties_typeProperties_username": {
+			"value": "root"
+		},
+		"MySql1_properties_typeProperties_server": {
+			"value": "localhost"
+		},
+		"MySql1_properties_typeProperties_database": {
+			"value": "amazon_db"
+		},
+		"MySql1_properties_typeProperties_username": {
+			"value": "root"
+		}
+	}
+}

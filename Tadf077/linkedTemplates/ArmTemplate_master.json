@@ -1,0 +1,174 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "Tadf077"
+		},
+		"Adf2sql_LS_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Adf2sql_LS'"
+		},
+		"MYSQL2ADF_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'MYSQL2ADF'"
+		},
+		"MYSQL2ADF_LS_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'MYSQL2ADF_LS'"
+		},
+		"MySql1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'MySql1'"
+		},
+		"Adf2sql_LS_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "azesqlsvr.database.windows.net"
+		},
+		"Adf2sql_LS_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "DEsqldb"
+		},
+		"Adf2sql_LS_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
+		},
+		"MYSQL2ADF_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "localhost"
+		},
+		"MYSQL2ADF_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "training"
+		},
+		"MYSQL2ADF_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "root"
+		},
+		"MYSQL2ADF_LS_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "localhost"
+		},
+		"MYSQL2ADF_LS_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "training"
+		},
+		"MYSQL2ADF_LS_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "root"
+		},
+		"MySql1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "localhost"
+		},
+		"MySql1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "amazon_db"
+		},
+		"MySql1_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "root"
+		},
+		"containerUri": {
+			"type": "string",
+			"metadata": "URI to storage account containing linked ARM templates"
+		},
+		"containerSasToken": {
+			"type": "string",
+			"metadata": "Sas token to storage account containing linked ARM templates"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "Tadf077_ArmTemplate_0",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_0.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					},
+					"Adf2sql_LS_password": {
+						"value": "[parameters('Adf2sql_LS_password')]"
+					},
+					"MYSQL2ADF_password": {
+						"value": "[parameters('MYSQL2ADF_password')]"
+					},
+					"MYSQL2ADF_LS_password": {
+						"value": "[parameters('MYSQL2ADF_LS_password')]"
+					},
+					"MySql1_password": {
+						"value": "[parameters('MySql1_password')]"
+					},
+					"Adf2sql_LS_properties_typeProperties_server": {
+						"value": "[parameters('Adf2sql_LS_properties_typeProperties_server')]"
+					},
+					"Adf2sql_LS_properties_typeProperties_database": {
+						"value": "[parameters('Adf2sql_LS_properties_typeProperties_database')]"
+					},
+					"Adf2sql_LS_properties_typeProperties_userName": {
+						"value": "[parameters('Adf2sql_LS_properties_typeProperties_userName')]"
+					},
+					"MYSQL2ADF_properties_typeProperties_server": {
+						"value": "[parameters('MYSQL2ADF_properties_typeProperties_server')]"
+					},
+					"MYSQL2ADF_properties_typeProperties_database": {
+						"value": "[parameters('MYSQL2ADF_properties_typeProperties_database')]"
+					},
+					"MYSQL2ADF_properties_typeProperties_username": {
+						"value": "[parameters('MYSQL2ADF_properties_typeProperties_username')]"
+					},
+					"MYSQL2ADF_LS_properties_typeProperties_server": {
+						"value": "[parameters('MYSQL2ADF_LS_properties_typeProperties_server')]"
+					},
+					"MYSQL2ADF_LS_properties_typeProperties_database": {
+						"value": "[parameters('MYSQL2ADF_LS_properties_typeProperties_database')]"
+					},
+					"MYSQL2ADF_LS_properties_typeProperties_username": {
+						"value": "[parameters('MYSQL2ADF_LS_properties_typeProperties_username')]"
+					},
+					"MySql1_properties_typeProperties_server": {
+						"value": "[parameters('MySql1_properties_typeProperties_server')]"
+					},
+					"MySql1_properties_typeProperties_database": {
+						"value": "[parameters('MySql1_properties_typeProperties_database')]"
+					},
+					"MySql1_properties_typeProperties_username": {
+						"value": "[parameters('MySql1_properties_typeProperties_username')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "Tadf077_ArmTemplate_1",
+			"type": "Microsoft.Resources/deployments",
+			"apiVersion": "2024-03-01",
+			"properties": {
+				"mode": "incremental",
+				"templateLink": {
+					"uri": "[concat(parameters('containerUri'), '/ArmTemplate_1.json', parameters('containerSasToken'))]",
+					"contentVersion": "1.0.0.0"
+				},
+				"parameters": {
+					"factoryName": {
+						"value": "[parameters('factoryName')]"
+					}
+				}
+			},
+			"dependsOn": [
+				"[resourceId('Microsoft.Resources/deployments', 'Tadf077_ArmTemplate_0')]"
+			]
+		}
+	]
+}

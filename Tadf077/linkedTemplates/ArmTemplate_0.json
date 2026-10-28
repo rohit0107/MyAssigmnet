@@ -1,0 +1,529 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "Tadf077"
+		},
+		"Adf2sql_LS_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'Adf2sql_LS'"
+		},
+		"MYSQL2ADF_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'MYSQL2ADF'"
+		},
+		"MYSQL2ADF_LS_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'MYSQL2ADF_LS'"
+		},
+		"MySql1_password": {
+			"type": "secureString",
+			"metadata": "Secure string for 'password' of 'MySql1'"
+		},
+		"Adf2sql_LS_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "azesqlsvr.database.windows.net"
+		},
+		"Adf2sql_LS_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "DEsqldb"
+		},
+		"Adf2sql_LS_properties_typeProperties_userName": {
+			"type": "string",
+			"defaultValue": "sqladmin"
+		},
+		"MYSQL2ADF_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "localhost"
+		},
+		"MYSQL2ADF_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "training"
+		},
+		"MYSQL2ADF_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "root"
+		},
+		"MYSQL2ADF_LS_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "localhost"
+		},
+		"MYSQL2ADF_LS_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "training"
+		},
+		"MYSQL2ADF_LS_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "root"
+		},
+		"MySql1_properties_typeProperties_server": {
+			"type": "string",
+			"defaultValue": "localhost"
+		},
+		"MySql1_properties_typeProperties_database": {
+			"type": "string",
+			"defaultValue": "amazon_db"
+		},
+		"MySql1_properties_typeProperties_username": {
+			"type": "string",
+			"defaultValue": "root"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/Adf2sql_LS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"server": "[parameters('Adf2sql_LS_properties_typeProperties_server')]",
+					"database": "[parameters('Adf2sql_LS_properties_typeProperties_database')]",
+					"encrypt": "mandatory",
+					"trustServerCertificate": false,
+					"authenticationType": "SQL",
+					"userName": "[parameters('Adf2sql_LS_properties_typeProperties_userName')]",
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('Adf2sql_LS_password')]"
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/IRSelfhosted')]",
+			"type": "Microsoft.DataFactory/factories/integrationRuntimes",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "SelfHosted",
+				"typeProperties": {}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Cardataoutput')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Adf2sql_LS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "",
+					"table": "car_tb"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Adf2sql_LS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Elestoreoutput')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Adf2sql_LS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "",
+					"table": "elestore_tb"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Adf2sql_LS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/OUTPUT')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Adf2sql_LS",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Target_table": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"table": {
+						"value": "@dataset().Target_table",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Adf2sql_LS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/OutputTraining2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Adf2sql_LS",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Target_table2": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"table": {
+						"value": "@dataset().Target_table2",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Adf2sql_LS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/OutputdataINC')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Adf2sql_LS",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"Target_table": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"table": {
+						"value": "@dataset().Target_table",
+						"type": "Expression"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Adf2sql_LS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ReflastReceiveddate')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Adf2sql_LS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Adf2sql_LS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/cust_infor_output')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Adf2sql_LS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "name",
+						"type": "varchar"
+					},
+					{
+						"name": "address",
+						"type": "varchar"
+					},
+					{
+						"name": "email",
+						"type": "varchar"
+					},
+					{
+						"name": "updated_date",
+						"type": "datetime",
+						"precision": 23,
+						"scale": 3
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "customer_info"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Adf2sql_LS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MYSQL2ADF')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "MySql",
+				"typeProperties": {
+					"server": "[parameters('MYSQL2ADF_properties_typeProperties_server')]",
+					"port": 3306,
+					"database": "[parameters('MYSQL2ADF_properties_typeProperties_database')]",
+					"username": "[parameters('MYSQL2ADF_properties_typeProperties_username')]",
+					"sslMode": 1,
+					"useSystemTrustStore": 0,
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('MYSQL2ADF_password')]"
+					},
+					"driverVersion": "v2"
+				},
+				"connectVia": {
+					"referenceName": "IRSelfhosted",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/IRSelfhosted')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MYSQL2ADF_LS')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "MySql",
+				"typeProperties": {
+					"server": "[parameters('MYSQL2ADF_LS_properties_typeProperties_server')]",
+					"port": 3306,
+					"database": "[parameters('MYSQL2ADF_LS_properties_typeProperties_database')]",
+					"username": "[parameters('MYSQL2ADF_LS_properties_typeProperties_username')]",
+					"sslMode": 1,
+					"useSystemTrustStore": 0,
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('MYSQL2ADF_LS_password')]"
+					},
+					"driverVersion": "v2"
+				},
+				"connectVia": {
+					"referenceName": "IRSelfhosted",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/IRSelfhosted')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/MySql1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "MySql",
+				"typeProperties": {
+					"server": "[parameters('MySql1_properties_typeProperties_server')]",
+					"port": 3306,
+					"database": "[parameters('MySql1_properties_typeProperties_database')]",
+					"username": "[parameters('MySql1_properties_typeProperties_username')]",
+					"sslMode": 1,
+					"useSystemTrustStore": 0,
+					"password": {
+						"type": "SecureString",
+						"value": "[parameters('MySql1_password')]"
+					},
+					"driverVersion": "v2"
+				},
+				"connectVia": {
+					"referenceName": "IRSelfhosted",
+					"type": "IntegrationRuntimeReference"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/integrationRuntimes/IRSelfhosted')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Elestoreinput')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "MySql1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "MySqlTable",
+				"schema": [],
+				"typeProperties": {
+					"tableName": "`ele_store1`"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/MySql1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/INPUTDATA')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "MySql1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "MySqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/MySql1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/InputTraining')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "MYSQL2ADF_LS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "MySqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/MYSQL2ADF_LS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/InputTraining2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "MYSQL2ADF_LS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "MySqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/MYSQL2ADF_LS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/InputdatINC')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "MYSQL2ADF_LS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "MySqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/MYSQL2ADF_LS')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/RefTable')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "MYSQL2ADF",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "MySqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/MYSQL2ADF')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ReferenceTable')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "MySql1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "MySqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/MySql1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ReferenceTable2')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "MYSQL2ADF_LS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "MySqlTable",
+				"schema": [],
+				"typeProperties": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/MYSQL2ADF_LS')]"
+			]
+		}
+	]
+}
