@@ -57,7 +57,8 @@
 								"referenceName": "ReferenceTable2",
 								"type": "DatasetReference",
 								"parameters": {}
-							}
+							},
+							"firstRowOnly": false
 						}
 					},
 					{
@@ -94,7 +95,7 @@
 										"source": {
 											"type": "MySqlSource",
 											"query": {
-												"value": "@concat('select * from',item().TABLE_NAME)",
+												"value": "@concat('select * from  ',item().TABLE_NAME)",
 												"type": "Expression"
 											}
 										},
@@ -128,7 +129,7 @@
 											"type": "DatasetReference",
 											"parameters": {
 												"Target_table": {
-													"value": "@concat(item().TABLE_NAME,'mg')",
+													"value": "@concat(item().TABLE_NAME,'mgr')",
 													"type": "Expression"
 												}
 											}
