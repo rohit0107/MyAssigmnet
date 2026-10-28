@@ -1,0 +1,17 @@
+{
+	"name": "OutputdataINC",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Adf2sql_LS",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"Target_table": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": []
+	}
+}
