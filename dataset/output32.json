@@ -1,0 +1,16 @@
+{
+	"name": "output32",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Adf2sql_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "batches"
+		}
+	}
+}

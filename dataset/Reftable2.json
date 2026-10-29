@@ -1,0 +1,12 @@
+{
+	"name": "Reftable2",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "MYSQL2ADF_LS",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "MySqlTable",
+		"schema": []
+	}
+}
