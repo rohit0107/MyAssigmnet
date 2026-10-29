@@ -7,12 +7,12 @@
 		"typeProperties": {
 			"server": "localhost",
 			"port": 3306,
-			"database": "training",
+			"database": "assigmnet",
 			"username": "root",
 			"sslMode": 1,
 			"useSystemTrustStore": 0,
 			"driverVersion": "v2",
-			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiIzNGI0YzI3ZC0wMDg5LTRjODItOWJlYy1hNTg3Nzk0ZGRmMDYiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
+			"encryptedCredential": "eyJDcmVkZW50aWFsSWQiOiI3ZmU2MmQ3My05NTQ2LTQ5Y2ItYTM2NC0xY2E3MDQ1ZDUzYTEiLCJWZXJzaW9uIjoiMi4wIiwiQ2xhc3NUeXBlIjoiTWljcm9zb2Z0LkRhdGFQcm94eS5Db3JlLkludGVyU2VydmljZURhdGFDb250cmFjdC5DcmVkZW50aWFsU1UwNkNZMTQifQ=="
 		},
 		"connectVia": {
 			"referenceName": "IRSelfhosted",
