@@ -39,7 +39,7 @@
 			"value": "localhost"
 		},
 		"MYSQL2ADF_LS_properties_typeProperties_database": {
-			"value": "training"
+			"value": "assignment"
 		},
 		"MYSQL2ADF_LS_properties_typeProperties_username": {
 			"value": "root"

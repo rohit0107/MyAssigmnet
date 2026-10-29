@@ -53,7 +53,7 @@
 		},
 		"MYSQL2ADF_LS_properties_typeProperties_database": {
 			"type": "string",
-			"defaultValue": "training"
+			"defaultValue": "assignment"
 		},
 		"MYSQL2ADF_LS_properties_typeProperties_username": {
 			"type": "string",
@@ -293,6 +293,27 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/output32')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Adf2sql_LS",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "batches"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Adf2sql_LS')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/MYSQL2ADF')]",
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
@@ -505,24 +526,6 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/MySql1')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ReferenceTable2')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "MYSQL2ADF_LS",
-					"type": "LinkedServiceReference"
-				},
-				"annotations": [],
-				"type": "MySqlTable",
-				"schema": [],
-				"typeProperties": {}
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/MYSQL2ADF_LS')]"
 			]
 		}
 	]

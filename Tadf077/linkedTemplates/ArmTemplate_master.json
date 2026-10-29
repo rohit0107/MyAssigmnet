@@ -53,7 +53,7 @@
 		},
 		"MYSQL2ADF_LS_properties_typeProperties_database": {
 			"type": "string",
-			"defaultValue": "training"
+			"defaultValue": "assignment"
 		},
 		"MYSQL2ADF_LS_properties_typeProperties_username": {
 			"type": "string",
